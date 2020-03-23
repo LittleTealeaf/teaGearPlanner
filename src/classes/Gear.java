@@ -7,7 +7,7 @@ import java.util.Objects;
 
 /**
  * @author Tealeaf
- * @version 1.0.0
+ * @version 1.0.2
  * @since 1.0.0
  */
 public class Gear {
@@ -139,6 +139,24 @@ public class Gear {
 
     public void setFilter(List<String> filter) {
         this.filter = filter;
+    }
+
+    public List<Item.ItemSlot> getSlotItems() {
+        return Arrays.asList(
+                new Item.ItemSlot(goggles, "Goggles"),
+                new Item.ItemSlot(helmet, "Helmet"),
+                new Item.ItemSlot(necklace, "Necklace"),
+                new Item.ItemSlot(trinket, "Trinket"),
+                new Item.ItemSlot(armor, "Armor"),
+                new Item.ItemSlot(cloak, "Cloak"),
+                new Item.ItemSlot(bracers, "Bracers"),
+                new Item.ItemSlot(belt, "Belt"),
+                new Item.ItemSlot(ring1, "Ring 1"),
+                new Item.ItemSlot(ring2, "Ring 2"),
+                new Item.ItemSlot(gloves, "Gloves"),
+                new Item.ItemSlot(boots, "Boots"),
+                new Item.ItemSlot(mainHand, "Main Hand"),
+                new Item.ItemSlot(offHand, "Off Hand"));
     }
 
     /**

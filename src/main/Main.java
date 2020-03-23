@@ -23,9 +23,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import static classes.Item.ItemSlot;
 
 /**
  * @author Tealeaf
@@ -38,6 +39,8 @@ public class Main extends Application {
     public static final IconGenerator iconDelete = new IconGenerator("iconDelete.png");
     public static final IconGenerator iconWarning = new IconGenerator("iconWarning.png");
     public static final IconGenerator iconError = new IconGenerator("iconError.png");
+    public static final IconGenerator iconCopy = new IconGenerator("iconCopy.png");
+
     public static Gear gear = new Gear();
     public static File file = null;
     private static GridPane itemGrid;
@@ -85,6 +88,15 @@ public class Main extends Application {
 
         file.getItems().addAll(newSet, open, save, saveAs);
 
+
+        Menu build = new Menu("Build");
+
+        MenuItem export = new MenuItem("Export");
+        export.setOnAction(e -> Export.export());
+
+        build.getItems().add(export);
+
+
         Menu help = new Menu("Help");
 
         MenuItem settings = new MenuItem("Settings");
@@ -93,7 +105,7 @@ public class Main extends Application {
         help.getItems().addAll(settings);
 
 
-        menuBar.getMenus().addAll(file, help);
+        menuBar.getMenus().addAll(file, build, help);
 
         return menuBar;
     }
@@ -137,7 +149,7 @@ public class Main extends Application {
      */
     private static void saveAs() {
         file = fileUpdate(getGearFileChooser().showSaveDialog(mainStage));
-        if (file != null) save();
+        save();
     }
 
     /**
@@ -174,7 +186,7 @@ public class Main extends Application {
     public static void populateItemGrid() {
         itemGrid.getChildren().clear();
 
-        Breakdowns.updateBreakdowns(gear); // Updates Breakdowns
+        Breakdowns.updateBreakdowns(); // Updates Breakdowns
 
         String[] headers = {"", "", "Name", "Effects", "Item Sets"};
         for (int i = 0; i < headers.length; i++) {
@@ -183,33 +195,20 @@ public class Main extends Application {
             itemGrid.add(text, i, 0);
         }
 
-        List<ItemSlot> items = Arrays.asList(
-                new ItemSlot(gear.getGoggles(), "Goggles"),
-                new ItemSlot(gear.getHelmet(), "Helmet"),
-                new ItemSlot(gear.getNecklace(), "Necklace"),
-                new ItemSlot(gear.getTrinket(), "Trinket"),
-                new ItemSlot(gear.getArmor(), "Armor"),
-                new ItemSlot(gear.getCloak(), "Cloak"),
-                new ItemSlot(gear.getBracers(), "Bracers"),
-                new ItemSlot(gear.getBelt(), "Belt"),
-                new ItemSlot(gear.getRing1(), "Ring 1"),
-                new ItemSlot(gear.getRing2(), "Ring 2"),
-                new ItemSlot(gear.getGloves(), "Gloves"),
-                new ItemSlot(gear.getBoots(), "Boots"),
-                new ItemSlot(gear.getMainHand(), "Main Hand"),
-                new ItemSlot(gear.getOffHand(), "Off Hand"));
 
+        //UPDATES WITH NEW ITEM SLOTS!
+        List<ItemSlot> items = gear.getSlotItems();
         for (int j = 0; j < items.size(); j++) {
             ItemSlot i = items.get(j);
 
-            Text tSlot = new Text(i.slot);
+            Text tSlot = new Text(i.getSlot());
             tSlot.setFont(Font.font("ubuntu", FontWeight.BOLD, 11));
 
             Button bClear = new Button();
             bClear.setGraphic(iconDelete.getImageView(16));
             int finalJ = j;
             bClear.setOnAction(e -> {
-                switch (i.slot) {
+                switch (i.getSlot()) {
                     case "Goggles":
                         gear.setGoggles(new Item());
                         break;
@@ -260,16 +259,16 @@ public class Main extends Application {
             });
 
             TextField itemName = new TextField();
-            itemName.setText(i.item.getName());
-            itemName.textProperty().addListener((e, o, n) -> i.item.setName(n));
+            itemName.setText(i.getItem().getName());
+            itemName.textProperty().addListener((e, o, n) -> i.getItem().setName(n));
 
             TextField itemSet = new TextField();
-            itemSet.setText(i.item.getItemSets());
-            itemSet.textProperty().addListener((e, o, n) -> i.item.setItemSets(n));
+            itemSet.setText(i.getItem().getItemSets());
+            itemSet.textProperty().addListener((e, o, n) -> i.getItem().setItemSets(n));
             itemSet.setTooltip(new Tooltip("Separate Item Sets with ','"));
 
 
-            itemGrid.addRow(j + 1, tSlot, bClear, itemName, new EffectGrid(i.item), itemSet);
+            itemGrid.addRow(j + 1, tSlot, bClear, itemName, new EffectGrid(i.getItem()), itemSet);
 
         }
 
@@ -328,23 +327,6 @@ public class Main extends Application {
         stage.setScene(scene);
 
         stage.show();
-    }
-
-    /**
-     * A Class linking an item to a specific gear slot
-     *
-     * @author Tealeaf
-     * @version 1.0.0
-     * @since 1.0.0
-     */
-    private static class ItemSlot {
-        private final Item item;
-        private final String slot;
-
-        public ItemSlot(Item item, String slot) {
-            this.item = item;
-            this.slot = slot;
-        }
     }
 
     /**

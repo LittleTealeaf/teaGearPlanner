@@ -98,4 +98,29 @@ public class Item {
                 ", effects=" + effects +
                 '}';
     }
+
+    /**
+     * A Class linking an item to a specific gear slot
+     *
+     * @author Tealeaf
+     * @version 1.0.2
+     * @since 1.0.0
+     */
+    public static class ItemSlot {
+        private final Item item;
+        private final String slot;
+
+        public ItemSlot(Item item, String slot) {
+            this.item = item;
+            this.slot = slot;
+        }
+
+        public Item getItem() {
+            return item;
+        }
+
+        public String getSlot() {
+            return slot;
+        }
+    }
 }

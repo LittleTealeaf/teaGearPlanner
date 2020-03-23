@@ -1,7 +1,6 @@
 package main;
 
 import classes.Effect;
-import classes.Gear;
 import classes.Item;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

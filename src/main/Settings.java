@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,14 @@ public class Settings {
     public static List<Breakdowns.Extractable> extractables;
 
     /**
+     * Default export settings
+     *
+     * @since 1.0.2
+     */
+    public static final Export.ExportSettings exportSettings = new Export.ExportSettings();
+    /**
      * Initial Directory for the Open and Close file choosers
+     *
      * @since 1.0.1
      */
     public static String fileBuilderPath = System.getProperty("user.home");

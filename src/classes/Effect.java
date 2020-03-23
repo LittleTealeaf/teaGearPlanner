@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  * @author Tealeaf
- * @version 1.0.0
+ * @version 1.0.2
  * @since 1.0.0
  */
 public class Effect {
@@ -113,8 +113,15 @@ public class Effect {
                 Objects.equals(type, effect.type);
     }
 
+
     @Override
     public String toString() {
-        return "Effect: " + value + " " + type + " modifier to " + name;
+        if (value != 0) {
+            return type + " " + name + " " + value;
+        } else if (!type.contentEquals("")) {
+            return type + " " + name;
+        } else {
+            return name;
+        }
     }
 }
