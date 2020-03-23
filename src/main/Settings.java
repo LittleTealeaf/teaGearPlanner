@@ -19,7 +19,7 @@ import java.util.Objects;
 
 /**
  * @author Tealeaf
- * @version 1.0.0
+ * @version 1.0.2.1
  * @since 1.0.0
  */
 public class Settings {
@@ -49,7 +49,7 @@ public class Settings {
      *
      * @since 1.0.2
      */
-    public static final Export.ExportSettings exportSettings = new Export.ExportSettings();
+    public static Export.ExportSettings exportSettings = new Export.ExportSettings();
     /**
      * Initial Directory for the Open and Close file choosers
      *

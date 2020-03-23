@@ -117,7 +117,9 @@ public class Effect {
     @Override
     public String toString() {
         if (value != 0) {
-            return type + " " + name + " " + value;
+            String s = value + "";
+            s = s.indexOf(".") < 0 ? s : s.replaceAll("0*$", "").replaceAll("\\.$", "");
+            return type + " " + name + " " + s;
         } else if (!type.contentEquals("")) {
             return type + " " + name;
         } else {
