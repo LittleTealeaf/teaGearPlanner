@@ -103,7 +103,7 @@ public class Export {
                 string = new StringBuilder();
             }
 
-            string.append(slotBuilder.toString(), 0, slotBuilder.length() - 2);
+            string.append(slotBuilder.toString(), 0, includeEffects ? slotBuilder.length() - 2 : slotBuilder.length());
 
         }
 
