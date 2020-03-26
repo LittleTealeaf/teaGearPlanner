@@ -3,15 +3,16 @@ package main;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,20 +37,6 @@ public class Settings {
      */
     public static boolean showCrashReports = true;
 
-
-    /**
-     * List of the extractables
-     *
-     * @since 1.0.0
-     */
-    public static List<Breakdowns.Extractable> extractables;
-
-    /**
-     * Default export settings
-     *
-     * @since 1.0.2
-     */
-    public static Export.ExportSettings exportSettings = new Export.ExportSettings();
     /**
      * Initial Directory for the Open and Close file choosers
      *
@@ -66,14 +53,6 @@ public class Settings {
      * @since 1.0.0
      */
     public static void load() {
-        try {
-            extractables = ((ExtractableContainer) Json.deserialize(new BufferedReader(new InputStreamReader(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("extractables")))), false, ExtractableContainer.class)).extractables;
-        } catch (Exception e) {
-            extractables = new ArrayList<>();
-            e.printStackTrace();
-        }
-
-
         Json.readObject(true, Settings.class, "Settings.json");
         save();
     }
@@ -179,155 +158,9 @@ public class Settings {
         settingObs.add(new SettingObj("Show Crash Reports", false, sShowCrashReports, "Advanced", "github crash report crash log debug"));
 
 
-        Button bExtractSave = new Button("Save");
-        bExtractSave.setOnAction(e -> save());
-        ScrollPane extractablePane = new ScrollPane(new ExtractableInterface());
-        HBox extrContents = new HBox(bExtractSave, extractablePane);
-        extrContents.setSpacing(5);
-        settingObs.add(new SettingObj("Extractables", false, extrContents, "Extractables", ""));
-
         return settingObs;
     }
 
-    /**
-     * A Grid-Pane interface for modifying the extractables
-     *
-     * @author Tealeaf
-     * @version 1.0.0
-     * @see Breakdowns.Extractable
-     * @since 1.0.0
-     */
-    private static class ExtractableInterface extends GridPane {
-
-        /**
-         * Creates a new ExtractableInterface. Populates the GridPane by invoking the {@link #updateGridPane()} method
-         *
-         * @since 1.0.0
-         */
-        public ExtractableInterface() {
-            super();
-            updateGridPane();
-        }
-
-        /**
-         * Updates the Grid Pane, populating it with extractables listed in {@link #extractables}
-         *
-         * @since 1.0.0
-         */
-        public void updateGridPane() {
-            super.getChildren().clear();
-
-            int row = 0;
-
-            for (Breakdowns.Extractable extractable : extractables) {
-                row++;
-
-                Button bDelete = new Button();
-                bDelete.setGraphic(Main.iconDelete.getImageView(16));
-                bDelete.setOnAction(e -> {
-                    extractables.remove(extractable);
-                    updateGridPane();
-                });
-                super.add(bDelete, 1, row);
-
-                TextField effectFrom = new TextField();
-                effectFrom.setText(extractable.getName());
-                effectFrom.textProperty().addListener((e, o, n) -> extractable.setName(n));
-                super.add(effectFrom, 2, row);
-
-                super.add(new PairInterface(extractable), 3, row);
-
-            }
-
-            Button bAdd = new Button();
-            bAdd.setGraphic(Main.iconAdd.getImageView(16));
-            bAdd.setOnAction(e -> {
-                extractables.add(new Breakdowns.Extractable());
-                updateGridPane();
-            });
-            super.add(bAdd, 0, row);
-
-
-        }
-
-        /**
-         * Displaying of the individual pairs for the Extractable Interface
-         *
-         * @author Tealeaf
-         * @version 1.0.0
-         * @see ExtractableInterface
-         * @see Breakdowns.Extractable.Pair
-         * @since 1.0.0
-         */
-        private static class PairInterface extends GridPane {
-            private final Breakdowns.Extractable extractable;
-
-            /**
-             * Creates a new PairInterface from a given Extractable
-             * <p>This populates the GridPane by invoking the {@link #updateGridPane()}} method</p>
-             *
-             * @param extractable The extractable that the Pair-Interface is paired to
-             *
-             * @since 1.0.0
-             */
-            public PairInterface(Breakdowns.Extractable extractable) {
-                super();
-                this.extractable = extractable;
-                updateGridPane();
-            }
-
-            /**
-             * Updates the grid pane, populating it with pairs specified in the {@code Extractable}
-             *
-             * @since 1.0.0
-             */
-            public void updateGridPane() {
-                super.getChildren().clear();
-
-                int row = 0;
-
-                super.add(new Text("Effect"), 2, 0);
-                super.add(new Text("Type-Replace"), 3, 0);
-                super.add(new Text("Type-Add"), 4, 0);
-
-                for (Breakdowns.Extractable.Pair pair : extractable.getReplace()) {
-                    row++;
-
-                    Button bDelete = new Button();
-                    bDelete.setGraphic(Main.iconDelete.getImageView(16));
-                    bDelete.setOnAction(e -> {
-                        extractable.getReplace().remove(pair);
-                        updateGridPane();
-                    });
-                    if (extractable.getReplace().size() > 1) super.add(bDelete, 1, row);
-
-                    TextField effect = new TextField();
-                    effect.setText(pair.getName());
-                    effect.textProperty().addListener((e, o, n) -> pair.setName(n));
-                    super.add(effect, 2, row);
-
-                    TextField typeReplace = new TextField();
-                    typeReplace.setText(pair.getTypeReplace());
-                    typeReplace.textProperty().addListener((e, o, n) -> pair.setTypeReplace(n));
-                    super.add(typeReplace, 3, row);
-
-                    TextField typeAdd = new TextField();
-                    typeAdd.setText(pair.getTypeAdd());
-                    typeAdd.textProperty().addListener((e, o, n) -> pair.setTypeAdd(n));
-                    super.add(typeAdd, 4, row);
-                }
-
-                Button bAdd = new Button();
-                bAdd.setGraphic(Main.iconAdd.getImageView(16));
-                bAdd.setOnAction(e -> {
-                    extractable.getReplace().add(new Breakdowns.Extractable.Pair());
-                    updateGridPane();
-                });
-                super.add(bAdd, 0, row);
-            }
-        }
-
-    }
 
     /**
      * A modular setting class that includes a setting, it's visual element, and keywords
@@ -421,17 +254,6 @@ public class Settings {
         @Override
         public String toString() {
             return name + " (" + category + ")";
-        }
-    }
-
-    /**
-     * A Container object used to store extractables in the initial values, found in the resources file
-     */
-    private static class ExtractableContainer {
-        public final List<Breakdowns.Extractable> extractables;
-
-        public ExtractableContainer(List<Breakdowns.Extractable> extractables) {
-            this.extractables = extractables;
         }
     }
 }
