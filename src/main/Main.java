@@ -7,12 +7,12 @@ import javafx.stage.Stage;
 
 /**
  * @author Tealeaf
- * @version 1.0.0
+ * @version 2.0.0
  * @since 1.0.0
  */
 public class Main extends Application {
 
-    public static Stage mainStage;
+    public static Stage stage;
 
     /**
      * Main Class
@@ -34,8 +34,12 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
-
-        mainStage = stage;
+        Main.stage = stage;
+        stage.setMaximized(Settings.startMaximized);
+        stage.maximizedProperty().addListener((e, o, n) -> {
+            Settings.startMaximized = n;
+            Settings.save();
+        });
 
         stage.setScene(new Scene(new BorderPane()));
 

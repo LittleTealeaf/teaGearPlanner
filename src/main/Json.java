@@ -37,6 +37,7 @@ public class Json {
 
         //Add any custom serialization and deserialization methods
 
+
         //Create the object
         gObject = builder.create();
         gStatic = builder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT).create();
@@ -155,6 +156,5 @@ public class Json {
             return null;
         }
     }
-
 
 }

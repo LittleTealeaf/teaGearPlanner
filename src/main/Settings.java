@@ -20,15 +20,15 @@ import java.util.Objects;
 
 /**
  * @author Tealeaf
- * @version 1.0.2.1
+ * @version 2.0.0
  * @since 1.0.0
  */
 public class Settings {
 
-    //INTERNAL SETTINGS
+
     public static boolean startMaximized = true;
 
-    //USER MODIFIED SETTINGS
+
     /**
      * Whether or not the application will display a crash report whenever an error occurs
      * <br>Defaults to {@code True}
@@ -36,6 +36,15 @@ public class Settings {
      * @since 1.0.0
      */
     public static boolean showCrashReports = true;
+
+    /**
+     * Whether or not to exclude default bonus types
+     * <br>Example:
+     * <ul><li>{@code False} - 21 Constitution</li>
+     * <li>{@code True} - 21 Enhancement Constitution</li></ul>
+     * <br>Defaults to {@code True}
+     */
+    public static boolean alwaysShowBonusType = false;
 
     /**
      * Initial Directory for the Open and Close file choosers
@@ -156,6 +165,16 @@ public class Settings {
         });
         sShowCrashReports.setTooltip(new Tooltip("When set to true, will display a crash screen with options to create a bug report on Github"));
         settingObs.add(new SettingObj("Show Crash Reports", false, sShowCrashReports, "Advanced", "github crash report crash log debug"));
+
+
+        CheckBox sAlwaysShowBonusType = new CheckBox("Always Show Bonus Type");
+        sAlwaysShowBonusType.setTooltip(new Tooltip("If checked, will always display the bonus type of an effect. \nIf unchecked, effects such as +21 Enhancement Constitution \nWill be displayed as +21 Constitution"));
+        sAlwaysShowBonusType.setSelected(alwaysShowBonusType);
+        sAlwaysShowBonusType.selectedProperty().addListener((e, o, n) -> {
+            alwaysShowBonusType = n;
+            save();
+        });
+        settingObs.add(new SettingObj("Always Show Bonus Type", false, sAlwaysShowBonusType, "Display", "display bonus type effect attribute enhancement equipment"));
 
 
         return settingObs;
