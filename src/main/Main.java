@@ -1,8 +1,9 @@
 package main;
 
+import classes.Effect;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
@@ -24,6 +25,7 @@ public class Main extends Application {
         Json.load();
         Settings.load();
 
+
         launch(args);
     }
 
@@ -41,9 +43,10 @@ public class Main extends Application {
             Settings.save();
         });
 
-        stage.setScene(new Scene(new BorderPane()));
+        stage.setScene(new Scene(new HBox(new Effect().getEditNode())));
 
         stage.show();
     }
+
 
 }

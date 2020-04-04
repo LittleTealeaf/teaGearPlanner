@@ -1,6 +1,12 @@
 package classes;
 
-import main.Settings;
+import javafx.scene.Node;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 import java.util.Objects;
 
@@ -11,23 +17,44 @@ import java.util.Objects;
  */
 public class Effect {
 
-    private static final String[] defaultTypes = new String[]{"Enhancement", "Equipment"};
     private String attribute = "";
     private String type = "";
-    private double value;
-    private transient Source source;
+    private double value = 0;
+
+    public Effect(Effect e) {
+        this.attribute = e.attribute;
+        this.type = e.type;
+        this.value = e.value;
+    }
 
     public Effect() {}
 
-    public Effect(String attribute, String type, double value) {
-        this(attribute, type, value, null);
+    public Node getEditNode() {
+
+        TextField textType = new TextField();
+        textType.setText(type);
+        textType.textProperty().addListener((e, o, n) -> setType(n));
+        textType.setTooltip(new Tooltip("Bonus Type of the Effect.\nExamples include \"Enhancement\",\"Insightful\",\"Quality\",etc."));
+
+        TextField textAttribute = new TextField();
+        textAttribute.setText(attribute);
+        textAttribute.textProperty().addListener((e, o, n) -> setAttribute(n));
+        textAttribute.setTooltip(new Tooltip("Attribute Name of the Effect"));
+
+        Spinner<Double> spinnerValue = new Spinner<>();
+        spinnerValue.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-100, 100, value));
+        spinnerValue.getValueFactory().valueProperty().addListener((e, o, n) -> setValue(n));
+        spinnerValue.setTooltip(new Tooltip("Value of the Bonus"));
+        spinnerValue.setEditable(true);
+
+        HBox hbox = new HBox(textAttribute, textType, spinnerValue);
+
+        return hbox;
     }
 
-    public Effect(String attribute, String type, double value, Source source) {
-        this.attribute = attribute;
-        this.type = type;
-        this.value = value;
-        this.source = source;
+    public Node getDisplayNode() {
+        Text text = new Text(value + " " + type + " " + attribute);
+        return text;
     }
 
     public String getAttribute() {
@@ -54,19 +81,6 @@ public class Effect {
         this.value = value;
     }
 
-    public String getValueString() {
-        String val = value + "";
-        return val.indexOf(".") < 0 ? val : val.replaceAll("0*$", "").replaceAll("\\.$", "");
-    }
-
-    public Source getSource() {
-        return source;
-    }
-
-    public void setSource(Source source) {
-        this.source = source;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,25 +93,15 @@ public class Effect {
 
     @Override
     public int hashCode() {
-        return Objects.hash(attribute, type, value, source);
+        return Objects.hash(attribute, type, value);
     }
 
     @Override
-    public String toString() {
-        if (value == 0) {
-            return attribute;
-        } else {
-            String val = getValueString();
-
-            if (!Settings.alwaysShowBonusType) {
-                for (String s : defaultTypes) {
-                    if (s.equalsIgnoreCase(type)) {
-                        return val + " " + attribute;
-                    }
-                }
-            }
-
-            return val + " " + type + " " + attribute;
-        }
+    public Effect clone() {
+        Effect e = new Effect();
+        e.setAttribute(this.attribute);
+        e.setType(this.type);
+        e.setValue(this.value);
+        return e;
     }
 }
