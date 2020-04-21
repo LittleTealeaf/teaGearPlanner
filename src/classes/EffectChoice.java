@@ -1,5 +1,6 @@
 package classes;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -52,6 +53,11 @@ public class EffectChoice extends Effect {
         spinnerValue.getValueFactory().valueProperty().addListener((e, o, n) -> setValue(n));
         spinnerValue.setTooltip(new Tooltip("Value of the Bonus"));
         spinnerValue.setEditable(true);
+        spinnerValue.getEditor().focusedProperty().addListener((i, o, n) -> Platform.runLater(() -> { // Highlights all text when you focus the text property
+            if (n && !spinnerValue.getEditor().getText().contentEquals("")) {
+                spinnerValue.getEditor().selectAll();
+            }
+        }));
 
         HBox hbox = new HBox(textAttribute, textType, spinnerValue);
         return hbox;
