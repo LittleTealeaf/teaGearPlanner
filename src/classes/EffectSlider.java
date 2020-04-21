@@ -12,6 +12,11 @@ import main.Main;
 
 import java.util.Objects;
 
+/**
+ * @author Tealeaf
+ * @version 2.0.0
+ * @since 2.0.0
+ */
 public class EffectSlider extends Effect {
 
     private double min = 0;
@@ -20,8 +25,23 @@ public class EffectSlider extends Effect {
 
     public EffectSlider() {
         super();
-        setValue(getDef());
+        setValue(def);
     }
+
+
+    private void setMin(double min) {
+        this.min = min;
+    }
+
+    private void setMax(double max) {
+        this.max = max;
+    }
+
+
+    private void setDef(double def) {
+        this.def = def;
+    }
+
 
     @Override
     public Node getEditNode() {
@@ -38,21 +58,21 @@ public class EffectSlider extends Effect {
 
 
         Spinner<Double> spinnerMin = new Spinner<>();
-        spinnerMin.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1000, 1000, getMin()));
+        spinnerMin.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1000, 1000, min));
         spinnerMin.getValueFactory().valueProperty().addListener((e, o, n) -> setMin(n));
         spinnerMin.setTooltip(new Tooltip("Minimum Value"));
         spinnerMin.setPrefWidth(75);
 
 
         Spinner<Double> spinnerMax = new Spinner<>();
-        spinnerMax.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1000, 1000, getMax()));
+        spinnerMax.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1000, 1000, max));
         spinnerMax.getValueFactory().valueProperty().addListener((e, o, n) -> setMax(n));
         spinnerMax.setTooltip(new Tooltip("Minimum Value"));
         spinnerMax.setPrefWidth(75);
 
 
         Spinner<Double> spinnerDefault = new Spinner<Double>();
-        spinnerDefault.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1000, 1000, getDef()));
+        spinnerDefault.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1000, 1000, def));
         spinnerDefault.getValueFactory().valueProperty().addListener((e, o, n) -> setDef(n));
         spinnerDefault.setTooltip(new Tooltip("Default Value"));
         spinnerDefault.setPrefWidth(75);
@@ -67,36 +87,12 @@ public class EffectSlider extends Effect {
 
     }
 
-    public double getMin() {
-        return min;
-    }
-
-    public void setMin(double min) {
-        this.min = min;
-    }
-
-    public double getMax() {
-        return max;
-    }
-
-    public void setMax(double max) {
-        this.max = max;
-    }
-
-    public double getDef() {
-        return def;
-    }
-
-    public void setDef(double def) {
-        this.def = def;
-    }
-
     @Override
     public Node getDisplayNode() {
         Spinner<Double> spinner = new Spinner<>();
-        spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(getMin(), getMax(), getValue()));
+        spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(min, max, getValue()));
         spinner.getValueFactory().valueProperty().addListener((e, o, n) -> setValue(n));
-        spinner.setTooltip(new Tooltip("Select a number between " + getMin() + " and " + getMax()));
+        spinner.setTooltip(new Tooltip("Select a number between " + min + " and " + max));
         spinner.setPrefWidth(75);
         Main.configSpinner(spinner);
 
@@ -126,9 +122,9 @@ public class EffectSlider extends Effect {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         EffectSlider that = (EffectSlider) o;
-        return Double.compare(that.getMin(), min) == 0 &&
-                Double.compare(that.getMax(), max) == 0 &&
-                Double.compare(that.getDef(), def) == 0;
+        return Double.compare(that.min, min) == 0 &&
+                Double.compare(that.max, max) == 0 &&
+                Double.compare(that.def, def) == 0;
     }
 
     @Override

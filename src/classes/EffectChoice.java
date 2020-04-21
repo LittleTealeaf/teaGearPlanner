@@ -9,6 +9,11 @@ import main.Main;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * @author Tealeaf
+ * @version 2.0.0
+ * @since 2.0.0
+ */
 public class EffectChoice extends Effect {
 
     private String[] attributes;
@@ -32,7 +37,7 @@ public class EffectChoice extends Effect {
         return stringBuilder.substring(0, stringBuilder.length() - 2);
     }
 
-    public void setAttributes(String string) {
+    private void setAttributes(String string) {
         attributes = string.split(",");
     }
 
