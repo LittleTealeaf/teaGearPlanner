@@ -30,6 +30,10 @@ public class Effect {
 
     public Effect() {}
 
+    public static String displayEffectFormat(double value, String type, String attribute) {
+        return value + " " + type + " " + attribute;
+    }
+
     public Node getEditNode() {
 
         TextField textType = new TextField();
@@ -48,18 +52,11 @@ public class Effect {
         spinnerValue.setTooltip(new Tooltip("Value of the Bonus"));
         Main.configSpinner(spinnerValue);
 
-        HBox hbox = new HBox(textAttribute, textType, spinnerValue);
-
-        return hbox;
+        return new HBox(textAttribute, textType, spinnerValue);
     }
 
     public Node getDisplayNode() {
-        Text text = new Text(displayEffectFormat(value,type,attribute));
-        return text;
-    }
-
-    public static String displayEffectFormat(double value, String type, String attribute) {
-        return value + " " + type + " " + attribute;
+        return new Text(displayEffectFormat(value, type, attribute));
     }
 
     public String getAttribute() {

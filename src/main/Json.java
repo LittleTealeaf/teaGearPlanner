@@ -49,9 +49,7 @@ public class Json {
      *
      * @param src      Object to Serialize
      * @param isStatic Include static variables
-     *
      * @return JSON representative of the Object
-     *
      * @since 1.0.0
      */
     public static String serialize(Object src, boolean isStatic) {
@@ -64,7 +62,6 @@ public class Json {
      * @param src      Object to Serialize
      * @param isStatic Include static variables
      * @param writer   Writer to write the JSON into
-     *
      * @since 1.0.0
      */
     public static void serialize(Object src, boolean isStatic, Writer writer) {
@@ -77,9 +74,7 @@ public class Json {
      * @param json     JSON representation of the object to deserialize
      * @param isStatic Whether or not to deserialize static fields
      * @param cls      Class of object to deserialize, ex: {@code Settings.class}
-     *
      * @return Deserialized Object represented in the JSON
-     *
      * @since 1.0.0
      */
     public static Object deserialize(String json, boolean isStatic, Type cls) {
@@ -92,9 +87,7 @@ public class Json {
      * @param reader   Reader of JSON representative of the object
      * @param isStatic Whether or not to deserialize static fields
      * @param cls      Class of object to deserialize, ex: {@code Settings.class}
-     *
      * @return Deserialized Object represented in the JSON
-     *
      * @since 1.0.0
      */
     public static Object deserialize(BufferedReader reader, boolean isStatic, Type cls) {
@@ -106,9 +99,7 @@ public class Json {
      * <p><b>Note</b>: This will return the file, whether or not it exists</p>
      *
      * @param path Path within the application directory
-     *
      * @return File with the given path
-     *
      * @since 1.0.0
      */
     public static File getFile(String... path) {
@@ -121,7 +112,6 @@ public class Json {
      * @param src      Object to save into the file
      * @param isStatic Whether or not to include static fields
      * @param path     Path within the application directory to save the file
-     *
      * @since 1.0.0
      */
     public static void saveObject(Object src, boolean isStatic, String... path) {
@@ -143,9 +133,7 @@ public class Json {
      * @param isStatic Whether or not to deserialize static fields
      * @param cls      Class of object to deserialize, ex: {@code Settings.class}
      * @param path     Path within the application directory
-     *
      * @return Deserialized Object represented in the JSON
-     *
      * @since 1.0.0
      */
     @SuppressWarnings ("UnusedReturnValue")

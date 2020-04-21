@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     public static Stage stage;
+    static Node effect;
 
     /**
      * Main Class
@@ -31,8 +32,6 @@ public class Main extends Application {
 
         launch(args);
     }
-
-    static Node effect;
 
     public static void configSpinner(Spinner... spinners) {
         for (Spinner spinner : spinners) {

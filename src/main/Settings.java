@@ -150,7 +150,6 @@ public class Settings {
      * Gets all the setting objects, each one with a given category, node, and keywords
      *
      * @return List of {@link SettingObj SettingObjs}
-     *
      * @since 1.0.0
      */
     private static List<SettingObj> getSettingObjects() {
@@ -203,7 +202,6 @@ public class Settings {
          * @param node     {@code JavaFX} {@link Node} of the setting
          * @param category Category of the Setting
          * @param keyWords Key Search Terms of the setting
-         *
          * @since 1.0.0
          */
         public SettingObj(String name, Node node, String category, String keyWords) {
@@ -221,7 +219,6 @@ public class Settings {
          * @param node     {@code JavaFX} {@link Node} of the setting
          * @param category Category of the Setting
          * @param keyWords Key Search Terms of the setting
-         *
          * @since 1.0.0
          */
         public SettingObj(String name, boolean showName, Node node, String category, String keyWords) {
@@ -236,9 +233,7 @@ public class Settings {
          * Filters out if this setting matches the given filter
          *
          * @param contents String Filter
-         *
          * @return {@code True} if this setting matches the filter<br>{@code False} if it does not
-         *
          * @since 1.0.0
          */
         public boolean contains(String contents) {
@@ -267,7 +262,6 @@ public class Settings {
          * Returns a String object that contains the name and it's category
          *
          * @return String representing the setting's name and category
-         *
          * @since 1.0.0
          */
         @Override

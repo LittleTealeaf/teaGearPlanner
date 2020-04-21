@@ -21,7 +21,7 @@ public class EffectChoice extends Effect {
 
     public String getAttributes() {
 
-        if(attributes == null) {
+        if (attributes == null) {
             return "";
         }
 
@@ -55,26 +55,25 @@ public class EffectChoice extends Effect {
         spinnerValue.setTooltip(new Tooltip("Value of the Bonus"));
         Main.configSpinner(spinnerValue);
 
-        HBox hbox = new HBox(textAttribute, textType, spinnerValue);
-        return hbox;
+        return new HBox(textAttribute, textType, spinnerValue);
     }
 
     @Override
     public Node getDisplayNode() {
-        if(attributes == null || attributes.length == 0) {
+        if (attributes == null || attributes.length == 0) {
             return new ComboBox<>();
         }
 
         String[] options = new String[attributes.length];
 
-        for(int i = 0; i < attributes.length; i++) {
-            options[i] = Effect.displayEffectFormat(getValue(),getType(),attributes[i]);
+        for (int i = 0; i < attributes.length; i++) {
+            options[i] = Effect.displayEffectFormat(getValue(), getType(), attributes[i]);
         }
 
         ComboBox<String> selectionBox = new ComboBox<>();
         selectionBox.setItems(FXCollections.observableArrayList(options));
         selectionBox.getSelectionModel().select(choice);
-        selectionBox.getSelectionModel().selectedIndexProperty().addListener((e,o,n) -> {
+        selectionBox.getSelectionModel().selectedIndexProperty().addListener((e, o, n) -> {
             choice = n.intValue();
         });
 
