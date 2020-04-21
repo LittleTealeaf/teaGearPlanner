@@ -1,23 +1,28 @@
 package classes;
 
+import javafx.collections.FXCollections;
 import javafx.scene.Node;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
 public class EffectChoice extends Effect {
 
-    private String[] attributes = new String[1];
+    private String[] attributes;
 
     private int choice = 0;
+
+
 
     public EffectChoice() {
         super();
     }
 
     public String getAttributes() {
+
+        if(attributes == null) {
+            return "";
+        }
+
         StringBuilder stringBuilder = new StringBuilder();
         for (String attribute : attributes) {
             stringBuilder.append(attribute + ",");
@@ -53,6 +58,28 @@ public class EffectChoice extends Effect {
     }
 
     @Override
+    public Node getDisplayNode() {
+        if(attributes == null || attributes.length == 0) {
+            return new ComboBox<>();
+        }
+
+        String[] options = new String[attributes.length];
+
+        for(int i = 0; i < attributes.length; i++) {
+            options[i] = Effect.displayEffectFormat(getValue(),getType(),attributes[i]);
+        }
+
+        ComboBox<String> selectionBox = new ComboBox<>();
+        selectionBox.setItems(FXCollections.observableArrayList(options));
+        selectionBox.getSelectionModel().select(choice);
+        selectionBox.getSelectionModel().selectedIndexProperty().addListener((e,o,n) -> {
+            choice = n.intValue();
+        });
+
+        return selectionBox;
+    }
+
+    @Override
     public String getAttribute() {
         try {
             return attributes[choice];
@@ -60,5 +87,12 @@ public class EffectChoice extends Effect {
             choice = 0;
             return attributes[0];
         }
+    }
+
+    @Override
+    public EffectChoice clone() {
+        EffectChoice n = new EffectChoice();
+        n.setAttributes(getAttributes());
+        return n;
     }
 }

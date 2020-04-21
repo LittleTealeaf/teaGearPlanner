@@ -53,8 +53,12 @@ public class Effect {
     }
 
     public Node getDisplayNode() {
-        Text text = new Text(value + " " + type + " " + attribute);
+        Text text = new Text(displayEffectFormat(value,type,attribute));
         return text;
+    }
+
+    public static String displayEffectFormat(double value, String type, String attribute) {
+        return value + " " + type + " " + attribute;
     }
 
     public String getAttribute() {

@@ -1,9 +1,7 @@
 package main;
 
-import classes.Effect;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 /**
@@ -29,6 +27,8 @@ public class Main extends Application {
         launch(args);
     }
 
+    static Node effect;
+
     /**
      * Creation of the main stage
      *
@@ -42,8 +42,6 @@ public class Main extends Application {
             Settings.startMaximized = n;
             Settings.save();
         });
-
-        stage.setScene(new Scene(new HBox(new Effect().getEditNode())));
 
         stage.show();
     }
