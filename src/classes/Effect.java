@@ -1,6 +1,5 @@
 package classes;
 
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -8,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import main.Main;
 
 import java.util.Objects;
 
@@ -46,12 +46,7 @@ public class Effect {
         spinnerValue.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-100, 100, value));
         spinnerValue.getValueFactory().valueProperty().addListener((e, o, n) -> setValue(n));
         spinnerValue.setTooltip(new Tooltip("Value of the Bonus"));
-        spinnerValue.getEditor().focusedProperty().addListener((i, o, n) -> Platform.runLater(() -> { // Highlights all text when you focus the text property
-            if (n && !spinnerValue.getEditor().getText().contentEquals("")) {
-                spinnerValue.getEditor().selectAll();
-            }
-        }));
-        spinnerValue.setEditable(true);
+        Main.configSpinner(spinnerValue);
 
         HBox hbox = new HBox(textAttribute, textType, spinnerValue);
 

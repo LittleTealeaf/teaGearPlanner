@@ -1,7 +1,12 @@
 package main;
 
+import classes.EffectSlider;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Spinner;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -29,6 +34,21 @@ public class Main extends Application {
 
     static Node effect;
 
+    public static void configSpinner(Spinner... spinners) {
+        for (Spinner spinner : spinners) {
+            configSpinner(spinner);
+        }
+    }
+
+    public static void configSpinner(Spinner spinner) {
+        spinner.setEditable(true);
+        spinner.getEditor().focusedProperty().addListener((i, o, n) -> Platform.runLater(() -> { // Highlights all text when you focus the text property
+            if (n && !spinner.getEditor().getText().contentEquals("")) {
+                spinner.getEditor().selectAll();
+            }
+        }));
+    }
+
     /**
      * Creation of the main stage
      *
@@ -43,8 +63,13 @@ public class Main extends Application {
             Settings.save();
         });
 
+        GridPane grid = new GridPane();
+
+        grid.add(new EffectSlider().getDisplayNode(), 0, 0);
+
+        Scene scene = new Scene(grid);
+
+        stage.setScene(scene);
         stage.show();
     }
-
-
 }

@@ -1,18 +1,19 @@
 package classes;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import main.Main;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 public class EffectChoice extends Effect {
 
     private String[] attributes;
 
     private int choice = 0;
-
-
 
     public EffectChoice() {
         super();
@@ -52,12 +53,7 @@ public class EffectChoice extends Effect {
         spinnerValue.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-100, 100, getValue()));
         spinnerValue.getValueFactory().valueProperty().addListener((e, o, n) -> setValue(n));
         spinnerValue.setTooltip(new Tooltip("Value of the Bonus"));
-        spinnerValue.setEditable(true);
-        spinnerValue.getEditor().focusedProperty().addListener((i, o, n) -> Platform.runLater(() -> { // Highlights all text when you focus the text property
-            if (n && !spinnerValue.getEditor().getText().contentEquals("")) {
-                spinnerValue.getEditor().selectAll();
-            }
-        }));
+        Main.configSpinner(spinnerValue);
 
         HBox hbox = new HBox(textAttribute, textType, spinnerValue);
         return hbox;
@@ -100,5 +96,22 @@ public class EffectChoice extends Effect {
         EffectChoice n = new EffectChoice();
         n.setAttributes(getAttributes());
         return n;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        EffectChoice that = (EffectChoice) o;
+        return choice == that.choice &&
+                Arrays.equals(attributes, that.attributes);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(super.hashCode(), choice);
+        result = 31 * result + Arrays.hashCode(attributes);
+        return result;
     }
 }
