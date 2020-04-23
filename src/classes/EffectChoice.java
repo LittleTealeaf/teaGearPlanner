@@ -41,6 +41,14 @@ public class EffectChoice extends Effect {
         attributes = string.split(",");
     }
 
+    /**
+     * The "Edit Node" is the Javafx UI Node that is displayed when in the item-editing interface. The purpose of this node is to make it easy for the user to edit the
+     * effect's details, such as the attribute, the bonus type (or stacking type), and value.
+     * <p>This method overrides the method stated in {@link Effect} in order to provide more customization options for the user</p>
+     * @return An {@link HBox} containing {@link TextField TextFields} for type and attribute, in addition to a {@link Spinner} for editing the value.
+     *<p> The user includes options by separating attribute choices by commas (','), without spaces in-between.</p>
+     * <p>A further development of this may result in combining {@link EffectChoice} and {@link Effect} together, such that the user can easily change between effect types</p>
+     */
     @Override
     public Node getEditNode() {
 
@@ -61,6 +69,12 @@ public class EffectChoice extends Effect {
         Main.configSpinner(spinnerValue);
 
         return new HBox(textAttribute, textType, spinnerValue);
+    }
+
+
+    @Override
+    public Node getSimpleNode() {
+        return getDisplayNode();
     }
 
     @Override

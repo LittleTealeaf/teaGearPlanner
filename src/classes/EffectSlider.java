@@ -88,6 +88,11 @@ public class EffectSlider extends Effect {
     }
 
     @Override
+    public Node getSimpleNode() {
+        return getDisplayNode();
+    }
+
+    @Override
     public Node getDisplayNode() {
         Spinner<Double> spinner = new Spinner<>();
         spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(min, max, getValue()));

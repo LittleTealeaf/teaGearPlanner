@@ -25,9 +25,10 @@ public class Effect {
     public Effect() {}
 
     /**
-     * Returns the node for an effect to be edited by
-     * <p></p>
-     * @return Editing Node
+     * The "Edit Node" is the Javafx UI Node that is displayed when in the item-editing interface. The purpose of this node is to make it easy for the user to edit the
+     * effect's details, such as the attribute, the bonus type (or stacking type), and value.
+     * <p>This method is overwritten in further extensions of the {@link Effect} class, since they add more configurations to the specific effect</p>
+     * @return An {@link HBox} containing text fields / spinners for configuration of the effect's attribute, bonus type (or stacking type), and value.
      */
     public Node getEditNode() {
 
@@ -50,6 +51,22 @@ public class Effect {
         return new HBox(textAttribute, textType, spinnerValue);
     }
 
+    /**
+     * The "Simple Node" is the Javafx UI Node that is displayed when in the quick-view interface for the gear-set. The purpose of this node is to
+     * allow the user to easily see and customize items.
+     * <p>This method is overwritten in further extensions of the {@link Effect} class, and will display simple option interfaces</p>
+     * @return An empty {@link Text} node.
+     */
+    public Node getSimpleNode() {
+        return new Text("");
+    }
+
+    /**
+     * The "Display Node" is the Javafx UI Node that is displayed on the detailed view for gear items. The purpose of this node is to allow the user to easily see
+     * the effects on a given item.
+     * <p>This method is overwritten in further instances of the {@link Effect} class in order to display options and further customization features</p>
+     * @return A {@link Text} node, displaying the effect's {@code value}, {@code type}, and {@code attribute}
+     */
     public Node getDisplayNode() {
         return new Text(value + " " + type + " " + attribute);
     }
