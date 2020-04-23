@@ -1,6 +1,5 @@
 package main;
 
-import classes.EffectSlider;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Node;
