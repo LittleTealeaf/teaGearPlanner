@@ -22,18 +22,13 @@ public class Effect {
     private String type = "";
     private double value = 0;
 
-    public Effect(Effect e) {
-        this.attribute = e.attribute;
-        this.type = e.type;
-        this.value = e.value;
-    }
-
     public Effect() {}
 
-    public static String displayEffectFormat(double value, String type, String attribute) {
-        return value + " " + type + " " + attribute;
-    }
-
+    /**
+     * Returns the node for an effect to be edited by
+     * <p></p>
+     * @return Editing Node
+     */
     public Node getEditNode() {
 
         TextField textType = new TextField();
@@ -56,7 +51,7 @@ public class Effect {
     }
 
     public Node getDisplayNode() {
-        return new Text(displayEffectFormat(value, type, attribute));
+        return new Text(value + " " + type + " " + attribute);
     }
 
     public String getAttribute() {

@@ -72,7 +72,7 @@ public class EffectChoice extends Effect {
         String[] options = new String[attributes.length];
 
         for (int i = 0; i < attributes.length; i++) {
-            options[i] = Effect.displayEffectFormat(getValue(), getType(), attributes[i]);
+            options[i] = getValue() + " " + getType() + " " + attributes[i];
         }
 
         ComboBox<String> selectionBox = new ComboBox<>();
