@@ -1,10 +1,12 @@
 package main;
 
+import classes.Effect;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -47,6 +49,13 @@ public class Main extends Application {
         }));
     }
 
+    public static Tooltip generateTooltip(String text) {
+        Tooltip tooltip = new Tooltip(text);
+        tooltip.setWrapText(true);
+        tooltip.setPrefWidth(400);
+        return tooltip;
+    }
+
     /**
      * Creation of the main stage
      *
@@ -63,7 +72,11 @@ public class Main extends Application {
 
         GridPane grid = new GridPane();
 
-        grid.add(new EffectSlider().getDisplayNode(), 0, 0);
+        Effect effect = new Effect();
+        effect.setAttributes("Strength");
+        effect.setValue("1-100");
+        effect.setBonusType("Insightful");
+        grid.add(effect.getDisplayNode(), 0, 0);
 
         Scene scene = new Scene(grid);
 
