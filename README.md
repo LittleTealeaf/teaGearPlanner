@@ -1,6 +1,10 @@
 # teaGearPlanner
  
-Effects:
- - Effect Choice
- - Effect
- - Effect Slider
+Item
+ - Enhancements
+    - Basic Enhancement
+        - List of Effects
+    - Seleciton Enhancement
+         - List of Selected Effects
+    - Gearset
+         - Special attribute name, perhaps "Gearset: " + gearset
