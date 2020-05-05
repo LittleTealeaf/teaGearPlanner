@@ -1,6 +1,5 @@
 package main;
 
-import classes.Effect;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -73,11 +72,6 @@ public class Main extends Application {
 
         GridPane grid = new GridPane();
 
-        Effect effect = new Effect();
-        effect.setAttributes("Strength");
-        effect.setValue("1-100");
-        effect.setBonusType("Insightful");
-        grid.add(effect.getDisplayNode(), 0, 0);
 
         Scene scene = new Scene(grid);
 
