@@ -20,8 +20,8 @@ import java.util.Objects;
 
 /**
  * @author Tealeaf
- * @version 2.0.0
- * @since 1.0.0
+ * @version 0.2.0
+ * @since 0.1.0
  */
 public class Settings {
 
@@ -33,7 +33,7 @@ public class Settings {
      * Whether or not the application will display a crash report whenever an error occurs
      * <br>Defaults to {@code True}
      *
-     * @since 1.0.0
+     * @since 0.1.0
      */
     public static boolean showCrashReports = true;
 
@@ -49,7 +49,7 @@ public class Settings {
     /**
      * Initial Directory for the Open and Close file choosers
      *
-     * @since 1.0.1
+     * @since 0.1.1
      */
     public static String fileBuilderPath = System.getProperty("user.home");
 
@@ -59,7 +59,7 @@ public class Settings {
     /**
      * Attempts to load the data, and then saves (so any settings not initialized will be saved)
      *
-     * @since 1.0.0
+     * @since 0.1.0
      */
     public static void load() {
         Json.readObject(true, Settings.class, "Settings.json");
@@ -73,7 +73,7 @@ public class Settings {
     /**
      * Opens the Settings UI
      *
-     * @since 1.0.0
+     * @since 0.1.0
      */
     public static void openSettings() {
         Stage stage = new Stage();
@@ -150,7 +150,7 @@ public class Settings {
      * Gets all the setting objects, each one with a given category, node, and keywords
      *
      * @return List of {@link SettingObj SettingObjs}
-     * @since 1.0.0
+     * @since 0.1.0
      */
     private static List<SettingObj> getSettingObjects() {
         List<SettingObj> settingObs = new ArrayList<>();
@@ -184,8 +184,8 @@ public class Settings {
      * A modular setting class that includes a setting, it's visual element, and keywords
      *
      * @author Tealeaf
-     * @version 1.0.0
-     * @since 1.0.0
+     * @version 0.1.0
+     * @since 0.1.0
      */
     private static class SettingObj {
         private final String name;
@@ -202,7 +202,7 @@ public class Settings {
          * @param node     {@code JavaFX} {@link Node} of the setting
          * @param category Category of the Setting
          * @param keyWords Key Search Terms of the setting
-         * @since 1.0.0
+         * @since 0.1.0
          */
         public SettingObj(String name, Node node, String category, String keyWords) {
             this.name = name;
@@ -219,7 +219,7 @@ public class Settings {
          * @param node     {@code JavaFX} {@link Node} of the setting
          * @param category Category of the Setting
          * @param keyWords Key Search Terms of the setting
-         * @since 1.0.0
+         * @since 0.1.0
          */
         public SettingObj(String name, boolean showName, Node node, String category, String keyWords) {
             this.name = name;
@@ -234,7 +234,7 @@ public class Settings {
          *
          * @param contents String Filter
          * @return {@code True} if this setting matches the filter<br>{@code False} if it does not
-         * @since 1.0.0
+         * @since 0.1.0
          */
         public boolean contains(String contents) {
             return contents.contentEquals("") || name.contains(contents.toLowerCase()) || keyWords.contains(contents.toLowerCase()) || category.contains(contents.toLowerCase());
@@ -243,7 +243,7 @@ public class Settings {
         /**
          * Compares whether or not this SettingObj's values equals a given object
          *
-         * @since 1.0.0
+         * @since 0.1.0
          */
         @Override
         public boolean equals(Object o) {
@@ -262,7 +262,7 @@ public class Settings {
          * Returns a String object that contains the name and it's category
          *
          * @return String representing the setting's name and category
-         * @since 1.0.0
+         * @since 0.1.0
          */
         @Override
         public String toString() {

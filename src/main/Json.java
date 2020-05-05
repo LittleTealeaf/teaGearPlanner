@@ -16,8 +16,8 @@ import java.nio.file.Files;
  * <p>This method uses the {@link Gson} resource to generate {@code JSON} files</p>
  *
  * @author Tealeaf
- * @version 1.0.0
- * @since 1.0.0
+ * @version 0.1.0
+ * @since 0.1.0
  */
 public class Json {
 
@@ -29,7 +29,7 @@ public class Json {
     /**
      * Initializes the Json converters
      *
-     * @since 1.0.0
+     * @since 0.1.0
      */
     public static void load() {
         //Create the builder
@@ -50,7 +50,7 @@ public class Json {
      * @param src      Object to Serialize
      * @param isStatic Include static variables
      * @return JSON representative of the Object
-     * @since 1.0.0
+     * @since 0.1.0
      */
     public static String serialize(Object src, boolean isStatic) {
         return (isStatic ? gStatic : gObject).toJson(src);
@@ -62,7 +62,7 @@ public class Json {
      * @param src      Object to Serialize
      * @param isStatic Include static variables
      * @param writer   Writer to write the JSON into
-     * @since 1.0.0
+     * @since 0.1.0
      */
     public static void serialize(Object src, boolean isStatic, Writer writer) {
         (isStatic ? gStatic : gObject).toJson(src, writer);
@@ -75,7 +75,7 @@ public class Json {
      * @param isStatic Whether or not to deserialize static fields
      * @param cls      Class of object to deserialize, ex: {@code Settings.class}
      * @return Deserialized Object represented in the JSON
-     * @since 1.0.0
+     * @since 0.1.0
      */
     public static Object deserialize(String json, boolean isStatic, Type cls) {
         return (isStatic ? gStatic : gObject).fromJson(json, cls);
@@ -88,7 +88,7 @@ public class Json {
      * @param isStatic Whether or not to deserialize static fields
      * @param cls      Class of object to deserialize, ex: {@code Settings.class}
      * @return Deserialized Object represented in the JSON
-     * @since 1.0.0
+     * @since 0.1.0
      */
     public static Object deserialize(BufferedReader reader, boolean isStatic, Type cls) {
         return (isStatic ? gStatic : gObject).fromJson(reader, cls);
@@ -100,7 +100,7 @@ public class Json {
      *
      * @param path Path within the application directory
      * @return File with the given path
-     * @since 1.0.0
+     * @since 0.1.0
      */
     public static File getFile(String... path) {
         return new File(java.nio.file.Paths.get(appDir, path).toString());
@@ -112,7 +112,7 @@ public class Json {
      * @param src      Object to save into the file
      * @param isStatic Whether or not to include static fields
      * @param path     Path within the application directory to save the file
-     * @since 1.0.0
+     * @since 0.1.0
      */
     public static void saveObject(Object src, boolean isStatic, String... path) {
         File f = getFile(path);
@@ -134,7 +134,7 @@ public class Json {
      * @param cls      Class of object to deserialize, ex: {@code Settings.class}
      * @param path     Path within the application directory
      * @return Deserialized Object represented in the JSON
-     * @since 1.0.0
+     * @since 0.1.0
      */
     @SuppressWarnings ("UnusedReturnValue")
     public static Object readObject(boolean isStatic, Type cls, String... path) {

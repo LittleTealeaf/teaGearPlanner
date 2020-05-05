@@ -8,3 +8,8 @@ Item
          - List of Selected Effects
     - Gearset
          - Special attribute name, perhaps "Gearset: " + gearset
+         
+Bonus:
+ - Attribute
+ - Type
+ - Value

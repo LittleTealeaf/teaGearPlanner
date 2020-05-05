@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 
 /**
  * @author Tealeaf
- * @version 2.0.0
- * @since 1.0.0
+ * @version 0.2.0
+ * @since 0.1.0
  */
 public class Main extends Application {
 
