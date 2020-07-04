@@ -26,6 +26,7 @@ public class Main extends Application {
      * @param args Arguments to be passed through into the application when launched
      */
     public static void main(String[] args) {
+        System.out.println((double) ((int) 5) / (double) ((int) 7));
         Json.load();
         Settings.load();
         UserData.load();
